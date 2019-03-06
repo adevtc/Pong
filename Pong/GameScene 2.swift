@@ -18,9 +18,6 @@ class GameScene: SKScene {
     var topLbl = SKLabelNode()
     var btmLbl = SKLabelNode()
     
-    var redSide = SKSpriteNode()
-    var blueSide = SKSpriteNode()
-    
 
     
     var score = [Int]()
@@ -30,9 +27,6 @@ class GameScene: SKScene {
         topLbl = self.childNode(withName: "topLabel") as! SKLabelNode
         btmLbl = self.childNode(withName: "btmLabel") as! SKLabelNode
         ball = self.childNode(withName: "ball") as! SKSpriteNode
-        
-        redSide = self.childNode(withName: "redSide") as! SKSpriteNode
-        blueSide = self.childNode(withName: "blueSide") as! SKSpriteNode
 
     
         
@@ -136,8 +130,7 @@ class GameScene: SKScene {
         }
     }
     
-        
-        
+
 
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
@@ -145,8 +138,6 @@ class GameScene: SKScene {
         
         switch currentGameType {
         case .easy:
-            redSide.isHidden = true
-            blueSide.isHidden = true
             topLbl.isHidden = true
             enemy.run(SKAction.moveTo(x: ball.position.x, duration: 1.3))
             if score == [2] {
@@ -155,26 +146,18 @@ class GameScene: SKScene {
             break
         case .medium:
             topLbl.isHidden = true
-            redSide.isHidden = true
-            blueSide.isHidden = true
             enemy.run(SKAction.moveTo(x: ball.position.x, duration: 1.0))
             break
         case .hard:
             topLbl.isHidden = true
-            redSide.isHidden = true
-            blueSide.isHidden = true
             enemy.run(SKAction.moveTo(x: ball.position.x, duration: 0.7))
             break
         case .player2:
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                self.redSide.isHidden = true
-                self.blueSide.isHidden = true
-            }
             topLbl.isHidden = false
             break
-            
         }
-
+        
+        
         
         if ball.position.y <= main.position.y - 30 {
             addScore(playerWhoWon: enemy)
